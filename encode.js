@@ -6,7 +6,7 @@ const server = new Server({port: process.env.PORT || 8000, perMessageDeflate: fa
 
 server.on('connection', function(websocket, req) {
 	const name = req.url.replace('/', '');
-	console.log(name);
+	console.log(`New connection with ${name}`);
 	if (!name) {
 		return websocket.terminate();
 	}
@@ -20,16 +20,6 @@ server.on('connection', function(websocket, req) {
 		.videoBitrate('500k')
 		.audioBitrate('128k')
 		.size('?x480')
-		// .addOption('-ar', 44100)
-		// .addOption('-g', 60)
-		// .addOption('-crf', 18)
-		// .addOption('-pix_fmt', 'yuv420p')
-		// .addOption('-threads', 6)
-		// .addOption('-q:v', 3)
-		// .addOption('-movflags', 'flagstart')
-		// .addOption('-b:a', '384k')
-		// .addOption('-maxrate', '750k')
-		// .addOption('-bufsize', '3000k')
 		.addOption('-f', 'flv')
 		.on('error', function(err) {
 			console.log(`Error: ${ err.message }`);
